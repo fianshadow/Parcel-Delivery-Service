@@ -14,7 +14,7 @@ class Package:
         self.deadline = deadline
         self.weight = weight
         self.notes = notes
-        self.status = [['Loaded', datetime.time(7, 00)]]
+        self.status = [['At Warehouse', datetime.time(7, 00)]]
 
     # Overwrite print(Package) to print strings instead of object references
     def __str__(self):

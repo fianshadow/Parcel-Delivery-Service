@@ -106,8 +106,6 @@ truck3.packageList.extend([2,6,23,25,26,27,28,31,32,33,35])
 
 start_time = datetime.time(7, 00)
 
-
-
 current_time = datetime.time(8,3)
 print('Checking Package Status:')
 print(check_package_status(1, current_time))
@@ -133,6 +131,9 @@ print(check_package_status(11, current_time))
 print()
 
 if __name__ == '__main__':
+    packageID = 4
+    status_time = datetime.time(19, 00)
+    print(check_package_status(packageID, status_time))
     print('Welcome to the WGU Postal Service Delivery System!')
     # 1. print all package status by truck as of a time
     # 2. print total mileage as of a time
@@ -147,11 +148,25 @@ if __name__ == '__main__':
     isExit = True
     while (isExit):
         print('\n\tOptions:')
-        print('1. Package Status')
+        print('1. Check Package Status')
         print()
         option = input("Please select an option (ex. 1, 2, 3, or 4): ")
         if option == '1':
-            isExit = False
+            packageID = input("Please enter a package ID from 1 to 40: ")
+            if 0 < int(option) <= 40:
+                time = input("Please enter the time to check the status (military time - hh:mm): ")
+                time_parts = time.split(':')
+                hour = time_parts[0]
+                minute = time_parts[1]
+                status_time = datetime.time(8,30)
+                if (0 < int(hour) <= 24) and (0 < int(minute) <= 59):
+                    print(f'Status for Package {packageID} as of {hour}:{minute}:')
+                    print(check_package_status(packageID, status_time))
+                    isExit = False
+                else:
+                    print("Invalid time")
+            else:
+                print("Invalid package ID")
         elif option == '2':
             isExit = False
         elif option == '3':
