@@ -1,4 +1,4 @@
-from CSV import loadPackageData
+from Package import loadPackageData
 
 class ChainingHashTable:
     # Constructor allows for initial capacity
@@ -48,5 +48,6 @@ class ChainingHashTable:
             if kv[0] == key:
                 bucket_list.remove(kv[0], kv[1])
 
+# Create and load the hash table
 myHash = ChainingHashTable()
 loadPackageData('WGUPS Package File.csv', myHash)

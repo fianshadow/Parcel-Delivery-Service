@@ -1,9 +1,11 @@
 # Importing the Package CSV data
 import csv
+import datetime
+
 
 class Package:
     # Constructor
-    def __init__(self, ID, address, city, state, zip, deadline, weight, notes, status):
+    def __init__(self, ID, address, city, state, zip, deadline, weight, notes):
         self.ID = ID
         self.address = address
         self.city = city
@@ -12,18 +14,20 @@ class Package:
         self.deadline = deadline
         self.weight = weight
         self.notes = notes
-        self.status = status
+        self.status = [['Loaded', datetime.time(7, 00)]]
 
     # Overwrite print(Package) to print strings instead of object references
     def __str__(self):
         return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.ID, self.address, self.city, self.state,
-                                                   self.zip, self.deadline, self.weight, self.notes, self.status)
+                                                       self.zip, self.deadline, self.weight,
+                                                       self.notes, self.status)
+
 
 # Read contents of the csv file and load it into the hash table
 def loadPackageData(fileName, myHash):
     with open(fileName, 'r') as packageLocations:
         packageData = csv.reader(packageLocations, delimiter=',')
-        next(packageData) # Skip header
+        next(packageData)  # Skip header
         for package in packageData:
             packageID = int(package[0])
             packageAddress = package[1]
@@ -33,13 +37,13 @@ def loadPackageData(fileName, myHash):
             packageDeadline = package[5]
             packageWeight = package[6]
             packageNotes = package[7]
-            packageStatus = "Loaded"
 
             # Create package object
             package = Package(packageID, packageAddress, packageCity, packageState,
-                              packageZip, packageDeadline, packageWeight, packageNotes, packageStatus)
+                              packageZip, packageDeadline, packageWeight, packageNotes)
             #Insert package into hash table
             myHash.insert(packageID, package)
+
 
 # Get size of package file
 def packageSize(fileName):
