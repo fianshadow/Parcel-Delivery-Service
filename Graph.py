@@ -16,21 +16,32 @@ class Graph:
     def load_edges(self, edges_file):
         edges_df = pd.read_csv(edges_file)
         for idx, row in edges_df.iterrows():
-            self.graph.add_edge(row['start_vertex'], row['end_vertex'], weight=row['edge_weight'])
+            self.graph.add_edge(int(row['start_vertex']), int(row['end_vertex']), weight=row['edge_weight'])
 
     def get_distance(self, start_vertex, end_vertex):
         return self.graph.edges[start_vertex, end_vertex]['weight']
 
-    def get_vertex(self, vertex_id):
-        return self.graph.nodes[vertex_id]['vertex_id']
+    def vertices(self):
+        return self.graph.nodes(data=True)
 
+    def edges(self):
+        return self.graph.edges(data=True)
+
+    def count_vertices(self):
+        """Return the number of vertices in the graph."""
+        return self.graph.number_of_nodes()
 
 my_graph = Graph()
 my_graph.load_vertices('WGUVertices.csv')
 my_graph.load_edges('WGUEdges.csv')
-for v in my_graph.graph.nodes:
-    print(my_graph.graph.nodes[v]['vertex_id'])
 
+print(my_graph.get_distance(1,7))
+# vertices_list = list(my_graph.vertices())
+#
+# print(my_graph.count_vertices())
+
+# for i, v in enumerate(vertices_list):
+#     print(vertices_list[i][0])
 
 def find_dropoff_vertex(packageID):
     package = myHash.search(packageID)
@@ -40,18 +51,48 @@ def find_dropoff_vertex(packageID):
 
 def find_closest_vertex(start_vertex, package_list, g):
     distances = []
-    for i, v in enumerate(g.adjacency_list):
-        if not start_vertex.label == v.label:
-            for packageID in package_list:
-                corresponding_vertex = find_dropoff_vertex(packageID)
-                if corresponding_vertex == int(v.label):
-                    distances.append([v.distance, f"Vertex: {i + 1}"])
+    vertices_list = list(g.vertices())
+    for i, v in enumerate(vertices_list):
+        # if start_vertex != vertices_list[i][0]:
+        for packageID in package_list:
+            corresponding_vertex = find_dropoff_vertex(packageID)
+            if corresponding_vertex == vertices_list[i][0]:
+                travel_distance = g.get_distance(start_vertex, corresponding_vertex)
+                vertex = i + 1
+                distances.append([travel_distance, vertex])
+    sorted_distances = sorted(distances)
+
+    return sorted_distances[0][1], sorted_distances[0][0]
+
+def view_remaining_vertex(start_vertex, package_list, g):
+    distances = []
+    vertices_list = list(g.vertices())
+    for i, v in enumerate(vertices_list):
+        # if start_vertex != vertices_list[i][0]:
+        for packageID in package_list:
+            corresponding_vertex = find_dropoff_vertex(packageID)
+            if corresponding_vertex == vertices_list[i][0]:
+                travel_distance = g.get_distance(start_vertex, corresponding_vertex)
+                vertex = i + 1
+                distances.append([travel_distance, f"Package: {packageID} to Vertex: {vertex}  "])
     sorted_distances = sorted(distances)
 
     return sorted_distances
 
-def get_distance(graph, start_vertex, end_vertex):
-    return graph[start_vertex][end_vertex]
+def find_address_from_vertex(dictionary, vertex):
+    # Return the first key (address) in dictionary that maps to 'value'
+    # If value is not found, return None
+    for key, value in dictionary.items():
+        if value == int(vertex):
+            return key
+    return None
+
+def find_package_by_vertex(vertex, package_list):
+    for packageID in package_list:
+        if find_dropoff_vertex(packageID) == vertex:
+            print(f'Package {packageID} is going to Vertex {vertex}: {find_address_from_vertex(location_vertex_dict, vertex)}')
+            return packageID
+
 
 
 location_vertex_dict = {

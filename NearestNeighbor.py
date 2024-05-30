@@ -2,12 +2,12 @@ import numpy as np
 from Graph import *
 
 def nearest_neighbor(graph):
-    num_nodes = 27
+    num_nodes = graph.count_vertices()
     visited = [False] * num_nodes
     tour = []
 
-    # Start from node 0
-    current_node = vertex1
+    # Start from node 1
+    current_node = 1
     tour.append(current_node)
     visited[current_node] = True
 
