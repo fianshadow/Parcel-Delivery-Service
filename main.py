@@ -77,7 +77,7 @@ def deliver_all_packages(start_vertex, Truck, packageList, start_time, g):
     # Updates the status of each package to 'In Route' once function starts
     for packageID in packageList:
         current_package = myHash.search(packageID)
-        current_package.status.append([f'In Route on Truck {Truck.number} as of {start_time}', start_time])
+        current_package.status.append([f'In Route on Truck {Truck.number} - {start_time}', start_time])
         myHash.insert(packageID, current_package)
 
     # While there are still packages on the truck...
@@ -108,7 +108,7 @@ def deliver_all_packages(start_vertex, Truck, packageList, start_time, g):
         current_package = find_package_by_vertex(next_vertex, packageList)
         delivered_package = myHash.search(current_package)  # Finds the package by packageID
         # Delivers that package and updates the status of the package
-        delivered_package.status.append([f'Delivered by Truck {Truck.number} at {new_time.time()}', new_time.time()])
+        delivered_package.status.append([f'Delivered by Truck {Truck.number} - {new_time.time()}', new_time.time()])
         # Updates the hash table
         myHash.insert(current_package, delivered_package)
         Truck.packageList.remove(current_package)  # Removes delivered package from package list
@@ -152,17 +152,34 @@ my_graph.load_edges('WGUEdges.csv')
 
 
 # Create and load the trucks
-start_time = datetime.time(8, 00)
-truck1 = Truck(1, start_time)
+load_time = datetime.time(7, 00)
+
+truck1 = Truck(1, load_time)
 truck1.packageList.extend([1, 7, 8, 13, 14, 15, 16, 19, 20, 21, 29, 30, 34, 37, 39, 40])
+# Update the status of each package
+for package in truck1.packageList:
+    current_package = myHash.search(package)
+    current_package.status.append([f'Loaded onto Truck {truck1.number} - {load_time}', load_time])
+# The time the truck leaves on delivery
+truck1_start_time = datetime.time(8, 00)
 
-start_time = datetime.time(12, 00)
-truck2 = Truck(2, start_time)
+truck2 = Truck(2, load_time)
 truck2.packageList.extend([3, 4, 5, 9, 10, 11, 12, 17, 18, 22, 24, 36, 38])
+# Update the status of each package
+for package in truck2.packageList:
+    current_package = myHash.search(package)
+    current_package.status.append([f'Loaded onto Truck {truck2.number} - {load_time}', load_time])
+# The time the truck leaves on delivery
+truck2_start_time = datetime.time(12, 00)
 
-start_time = datetime.time(9, 15)
-truck3 = Truck(3, start_time)
+truck3 = Truck(3, load_time)
 truck3.packageList.extend([2, 6, 23, 25, 26, 27, 28, 31, 32, 33, 35])
+# Update the status of each package
+for package in truck3.packageList:
+    current_package = myHash.search(package)
+    current_package.status.append([f'Loaded onto Truck {truck3.number} - {load_time}', load_time])
+# The time the truck leaves on delivery
+truck3_start_time = datetime.time(9, 15)
 
 
 # Package 9 Address is being updated as of 10:20 am
@@ -177,11 +194,11 @@ package.zip_code.append(["84111", current_time])
 ##################################
 # Deliver all packages
 start_vertex = 1
-deliver_all_packages(start_vertex, truck1, truck1.packageList, truck1.start_time, my_graph)
+deliver_all_packages(start_vertex, truck1, truck1.packageList, truck1_start_time, my_graph)
 
-deliver_all_packages(start_vertex, truck3, truck3.packageList, truck3.start_time, my_graph)
+deliver_all_packages(start_vertex, truck3, truck3.packageList, truck3_start_time, my_graph)
 
-deliver_all_packages(start_vertex, truck2, truck2.packageList, truck2.start_time, my_graph)
+deliver_all_packages(start_vertex, truck2, truck2.packageList, truck2_start_time, my_graph)
 ##################################
 
 # START OF PROGRAM
