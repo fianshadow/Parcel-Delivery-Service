@@ -184,7 +184,7 @@ deliver_all_packages(start_vertex, truck3, truck3.packageList, truck3.start_time
 deliver_all_packages(start_vertex, truck2, truck2.packageList, truck2.start_time, my_graph)
 ##################################
 
-
+# START OF PROGRAM
 if __name__ == '__main__':
 
     print(f'\nWelcome to the WGU Postal Service Delivery System\n')
