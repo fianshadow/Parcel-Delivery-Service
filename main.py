@@ -107,7 +107,7 @@ truck3.packageList.extend([2,6,23,25,26,27,28,31,32,33,35])
 start_time = datetime.time(7, 00)
 
 current_time = datetime.time(8,3)
-print('Checking Package Status:')
+
 print(check_package_status(1, current_time))
 print()
 
@@ -125,9 +125,8 @@ print(f'Time Finished: {max(truck1.start_time, truck2.start_time, truck3.start_t
 print()
 ##################################
 
-current_time = datetime.time(12, 30)
-print('Checking Package Status:')
-print(check_package_status(11, current_time))
+current_time = datetime.time(14, 30)
+print(check_package_status(11, datetime.time(5, 2)))
 print()
 
 if __name__ == '__main__':
@@ -147,26 +146,50 @@ if __name__ == '__main__':
     # Loop until user exits
     isExit = True
     while (isExit):
-        print('\n\tOptions:')
+        print('\tMain Menu:')
         print('1. Check Package Status')
-        print()
+        print('2.')
+        print('3.')
+        print('4. Exit the program')
         option = input("Please select an option (ex. 1, 2, 3, or 4): ")
         if option == '1':
-            packageID = input("Please enter a package ID from 1 to 40: ")
-            if 0 < int(option) <= 40:
-                time = input("Please enter the time to check the status (military time - hh:mm): ")
-                time_parts = time.split(':')
-                hour = time_parts[0]
-                minute = time_parts[1]
-                status_time = datetime.time(8,30)
-                if (0 < int(hour) <= 24) and (0 < int(minute) <= 59):
-                    print(f'Status for Package {packageID} as of {hour}:{minute}:')
-                    print(check_package_status(packageID, status_time))
-                    isExit = False
+            packageLoop = True
+            while packageLoop:
+                packageID = int(input("Please enter a package ID from 1 to 40: "))
+                if 0 < int(packageID) <= 40:
+                    timeLoop = True
+                    while (timeLoop):
+                        time = input("Please enter the time to check the status (military time - hh:mm): ")
+                        hour = None
+                        minute = None
+                        if ':' in time:
+                            time_parts = time.split(':')
+                            if time_parts[0].isdigit() and time_parts[1].isdigit():
+                                hour = time_parts[0]
+                                minute = time_parts[1]
+                                if (0 <= int(hour) <= 24) and (0 <= int(minute) <= 59):
+                                    status_time = datetime.time(int(hour), int(minute))
+                                    print(f'\nStatus for Package {packageID} as of {status_time}:')
+                                    headers = ["ID", "Address", "City", "State", "Zip", "Deadline",
+                                               "Weight", "Status", "Notes"]
+                                    print(f'\t{headers[0]:<4}{headers[1]:^25}{headers[2]:^15}{headers[3]:^7}{headers[4]:^7}'
+                                          f'{headers[5]:^10}{headers[6]:^8}{headers[7]:^38}{headers[8]:^20}')
+                                    package = myHash.search(packageID)
+                                    print(f'\t{package.ID:<4}{package.address:^25}{package.city:^15}{package.state:^7}'
+                                            f'{package.zip:^7}{package.deadline:^10}{package.weight:^8}'
+                                            f'{check_package_status(packageID, status_time):^38}{package.notes:^20}')
+
+                                    print()
+                                    timeLoop = False
+                                else:
+                                    print("Invalid time\n")
+                            else:
+                                print("Invalid time\n")
+                        else:
+                            print("Invalid time\n")
+                    packageLoop = False
                 else:
-                    print("Invalid time")
-            else:
-                print("Invalid package ID")
+                    print("Invalid package ID\n")
         elif option == '2':
             isExit = False
         elif option == '3':
@@ -174,4 +197,4 @@ if __name__ == '__main__':
         elif option == '4':
             isExit = False
         else:
-            print("Invalid option")
+            print("Invalid option\n")
