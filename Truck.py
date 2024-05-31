@@ -8,4 +8,5 @@ class Truck:
         self.capacity = capacity
         self.number = number
         self.start_time = start_time
+        self.current_time = self.start_time
         self.time_value = 0

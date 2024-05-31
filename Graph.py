@@ -57,7 +57,7 @@ def find_address_from_vertex(dictionary, vertex):
 def find_package_by_vertex(vertex, package_list):
     for packageID in package_list:
         if find_dropoff_vertex(packageID) == vertex:
-            print(f'Package {packageID} is going to Vertex {vertex}: {find_address_from_vertex(location_vertex_dict, vertex)}')
+            # print(f'Package {packageID} is going to Vertex {vertex}: {find_address_from_vertex(location_vertex_dict, vertex)}')
             return packageID
 
 # This function is a modification of the nearest neighbor algorithm. First it checks to see which packages have deadlines.
