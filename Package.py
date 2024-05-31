@@ -2,7 +2,6 @@
 import csv
 import datetime
 
-
 class Package:
     # Constructor
     def __init__(self, time, package_id, address, city, state, zip_code, deadline, weight, notes):
