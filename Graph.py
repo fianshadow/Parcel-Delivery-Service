@@ -1,8 +1,8 @@
-
 import pandas as pd
 import networkx as nx
 from HashTable import *
 
+# Created a graph class to represent the relationship between all package locations being visited
 class Graph:
     def __init__(self):
         self.graph = nx.Graph()
@@ -31,15 +31,17 @@ class Graph:
         return self.graph.number_of_nodes()
 
 
+# Finds each package drop off vertex based on package address
 def find_dropoff_vertex(packageID):
     package = myHash.search(packageID)
     for key in location_vertex_dict:
+        # If current address is equal to the dictionary key, return corresponding vertex
         if package.address[-1][0] == key:
             return location_vertex_dict[key]
 
 
+# Return the first key (address) in dictionary that maps to 'value'
 def find_address_from_vertex(dictionary, vertex):
-    # Return the first key (address) in dictionary that maps to 'value'
     # If value is not found, return None
     for key, value in dictionary.items():
         if value == int(vertex):
@@ -119,6 +121,7 @@ def view_remaining_vertex(start_vertex, package_list, g):
     return sorted_distances
 
 
+# Dictionary for address/vertex relationship
 location_vertex_dict = {
     "4001 South 700 East": 1,
     "1060 Dalton Ave S": 2,

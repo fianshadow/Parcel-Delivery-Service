@@ -1,5 +1,6 @@
 from Package import *
 
+# Created a chaining hash table class to store the data for each package and quickly retrieve it.
 class ChainingHashTable:
     # Constructor allows for initial capacity
     # Assigns buckets with empty list

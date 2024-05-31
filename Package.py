@@ -1,9 +1,11 @@
-# Importing the Package CSV data
 import csv
 import datetime
 
+
+# Creates a package class to capture all package data from 'WGUPS Package File.csv'file
 class Package:
-    # Constructor
+    # Constructor creates a tuple for each variable to allow access to previous package information
+    # based on the time it was updated.
     def __init__(self, time, package_id, address, city, state, zip_code, deadline, weight, notes):
         self.time = time
         self.package_id = [[package_id, self.time]]

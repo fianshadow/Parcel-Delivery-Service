@@ -1,5 +1,4 @@
-import datetime
-
+# Creates a truck class that will hold all the packages.
 class Truck:
     def __init__(self, number, start_time, capacity=16):
         self.mileage = 0
