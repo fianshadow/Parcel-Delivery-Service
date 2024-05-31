@@ -43,7 +43,13 @@ class Graph:
 def find_dropoff_vertex(packageID):
     package = myHash.search(packageID)
     for key in location_vertex_dict:
-        if package.address == key:
+        if package.address[-1][0] == key:
+            return location_vertex_dict[key]
+
+def find_dropoff_vertexTEST(packageID):
+    package = myHashTest.search(packageID)
+    for key in location_vertex_dict:
+        if package.address[-1][0] == key:
             return location_vertex_dict[key]
 
 def find_address_from_vertex(dictionary, vertex):
@@ -57,7 +63,8 @@ def find_address_from_vertex(dictionary, vertex):
 def find_package_by_vertex(vertex, package_list):
     for packageID in package_list:
         if find_dropoff_vertex(packageID) == vertex:
-            # print(f'Package {packageID} is going to Vertex {vertex}: {find_address_from_vertex(location_vertex_dict, vertex)}')
+            # print(f'Package {packageID} is going to Vertex {vertex}: {find_address_from_vertex(
+            # location_vertex_dict, vertex)}')
             return packageID
 
 # This function is a modification of the nearest neighbor algorithm. First it checks to see which packages have deadlines.
@@ -85,7 +92,7 @@ def find_closest_vertex(start_vertex, package_list, g):
                     # Check if package has deadline
                     package = myHash.search(packageID)
                     # If package has deadline, create a priority list of packages
-                    if 'EOD' not in package.deadline:
+                    if 'EOD' not in package.deadline[-1][0]:
                         priority_list.append([travel_distance, vertex])
                     # While there are packages with deadlines, deliver them first
                     while(priority_list):

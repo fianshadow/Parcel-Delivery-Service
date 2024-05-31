@@ -1,4 +1,4 @@
-from Package import loadPackageData
+from Package import *
 
 class ChainingHashTable:
     # Constructor allows for initial capacity

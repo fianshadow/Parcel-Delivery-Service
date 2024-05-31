@@ -5,21 +5,22 @@ import datetime
 
 class Package:
     # Constructor
-    def __init__(self, ID, address, city, state, zip, deadline, weight, notes):
-        self.ID = ID
-        self.address = address
-        self.city = city
-        self.state = state
-        self.zip = zip
-        self.deadline = deadline
-        self.weight = weight
-        self.notes = notes
-        self.status = [['At Warehouse', datetime.time(7, 00)]]
+    def __init__(self, time, package_id, address, city, state, zip_code, deadline, weight, notes):
+        self.time = time
+        self.package_id = [[package_id, self.time]]
+        self.address = [[address, self.time]]
+        self.city = [[city, self.time]]
+        self.state = [[state, self.time]]
+        self.zip_code = [[zip_code, self.time]]
+        self.deadline = [[deadline, self.time]]
+        self.weight = [[weight, self.time]]
+        self.notes = [[notes, self.time]]
+        self.status = [['At Warehouse', self.time]]
 
     # Overwrite print(Package) to print strings instead of object references
     def __str__(self):
-        return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.ID, self.address, self.city, self.state,
-                                                       self.zip, self.deadline, self.weight,
+        return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.package_id, self.address, self.city, self.state,
+                                                       self.zip_code, self.deadline, self.weight,
                                                        self.notes, self.status)
 
 
@@ -29,20 +30,21 @@ def loadPackageData(fileName, myHash):
         packageData = csv.reader(packageLocations, delimiter=',')
         next(packageData)  # Skip header
         for package in packageData:
-            packageID = int(package[0])
-            packageAddress = package[1]
-            packageCity = package[2]
-            packageState = package[3]
-            packageZip = package[4]
-            packageDeadline = package[5]
-            packageWeight = package[6]
-            packageNotes = package[7]
+            package_time = datetime.time(7, 0)
+            package_id = int(package[0])
+            package_address = package[1]
+            package_city = package[2]
+            package_state = package[3]
+            package_zip = package[4]
+            package_deadline = package[5]
+            package_weight = package[6]
+            package_notes = package[7]
 
             # Create package object
-            package = Package(packageID, packageAddress, packageCity, packageState,
-                              packageZip, packageDeadline, packageWeight, packageNotes)
-            #Insert package into hash table
-            myHash.insert(packageID, package)
+            package = Package(package_time, package_id, package_address, package_city, package_state,
+                              package_zip, package_deadline, package_weight, package_notes)
+            # Insert package into hash table
+            myHash.insert(package_id, package)
 
 
 # Get size of package file
