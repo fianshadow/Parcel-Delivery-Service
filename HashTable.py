@@ -10,7 +10,7 @@ class ChainingHashTable:
         for i in range(capacity):
             self.table.append([])
 
-    # Inserts / Updates item in the hash table
+    # Inserts / Updates packages in the hash table
     def insert(self, key, package):
         # Get location of bucket being used
         bucket = hash(key) % len(self.table)
@@ -25,8 +25,8 @@ class ChainingHashTable:
         key_value = [key, package]
         bucket_list.append(key_value)
 
-    # Searches for package with key in the hash table
-    # Returns item if found
+    # Searches for package with package ID in the hash table
+    # Returns package if found
     def search(self, key):
         # Get location of bucket where key should be
         bucket = hash(key) % len(self.table)
@@ -38,7 +38,7 @@ class ChainingHashTable:
             if kv[0] == key:
                 return kv[1]
 
-    # Remove item using key from the hash table
+    # Removes package using package ID from the hash table
     def remove(self, key):
         # Get location of bucket where key should be
         bucket = hash(key) % len(self.table)
@@ -48,6 +48,7 @@ class ChainingHashTable:
         for kv in bucket_list:
             if kv[0] == key:
                 bucket_list.remove(kv[0], kv[1])
+
 
 # Create and load the hash table
 myHash = ChainingHashTable()

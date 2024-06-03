@@ -8,7 +8,7 @@ class Package:
     # based on the time it was updated.
     def __init__(self, time, package_id, address, city, state, zip_code, deadline, weight, notes):
         self.time = time
-        self.package_id = [[package_id, self.time]]
+        self.package_id = package_id
         self.address = [[address, self.time]]
         self.city = [[city, self.time]]
         self.state = [[state, self.time]]
@@ -16,13 +16,13 @@ class Package:
         self.deadline = [[deadline, self.time]]
         self.weight = [[weight, self.time]]
         self.notes = [[notes, self.time]]
-        self.status = [['At Warehouse', self.time]]
+        self.status = [['Heading to Depot', self.time]]
 
     # Overwrite print(Package) to print strings instead of object references
     def __str__(self):
         return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.package_id, self.address, self.city, self.state,
-                                                       self.zip_code, self.deadline, self.weight,
-                                                       self.notes, self.status)
+                                                            self.zip_code, self.deadline, self.weight,
+                                                            self.notes, self.status)
 
 
 # Read contents of the csv file and load it into the hash table
