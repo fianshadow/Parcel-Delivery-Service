@@ -9,9 +9,9 @@ Purpose: This project shows a solution to the traveling salesman problem. Using 
 The solution must deliver all packages and keep mileage under 140 miles and consider all package constraints.
 
 Overview: The program uses a modification of the nearest neighbor algorithm to determine the best route to deliver packages, given different package constraints.
-Package constraints include different package delivery time deadlines and updating dropoff locations at different times. 
+Package constraints include different package delivery time deadlines and updating drop-off locations at different times. 
 The program keeps track of the package status at all points in time to ensure proper tracking (ie heading to depot, loaded, in route, delivered).
-Application uses a simple menu to allow user to view the status of any package at any time and truck delivery details.
+Application uses a simple terminal menu to allow user to view the status of any package at any time and truck delivery details.
 Main menu has four options (1. Check Status of Individual Package, 2. Check Status of All Packages, 3. View Truck Details, 4. Exit The Program)
 
 IDE: PyCharm 2024.1.1 (Professional Edition)
