@@ -69,7 +69,7 @@ def check_address(package_id, time_test):
 
 
 # Delivers all the packages on a given truck starting from vertex 1.
-def deliver_all_packages(Truck, g):
+def deliver_all_packages(Truck):
     # # PRINTS FOR DEBUGGING PURPOSES
     # print(f'Truck {Truck.number} Delivery Route:\n {Truck.route}')
     # print(f'Mileage: {Truck.mileage}')
@@ -88,7 +88,7 @@ def deliver_all_packages(Truck, g):
     # While there are still packages on the truck...
     while package_list:
         # Finds the closest vertex where there is a package to be delivered
-        next_vertex, mileage = find_closest_vertex(start_vertex, package_list, g)
+        next_vertex, mileage = find_closest_vertex(start_vertex, package_list, my_graph)
 
         # Updates the truck route
         Truck.route = Truck.route + ' -> ' + str(next_vertex)
@@ -128,8 +128,8 @@ def deliver_all_packages(Truck, g):
         # print()
 
     # Updates truck mileage
-    Truck.mileage += g.get_distance(start_vertex, 1)
-    mileage = g.get_distance(start_vertex, 1)
+    Truck.mileage += my_graph.get_distance(start_vertex, 1)
+    mileage = my_graph.get_distance(start_vertex, 1)
     # # PRINT FOR DEBUGGING PURPOSES
     # print(f'Final Mileage: {Truck.mileage}')
 
@@ -202,19 +202,15 @@ package.zip_code.append(["84111", current_time])
 
 ##################################
 # Deliver all packages
-deliver_all_packages(truck1, my_graph)
+deliver_all_packages(truck1)
 
-deliver_all_packages(truck3, my_graph)
+deliver_all_packages(truck3)
 
-deliver_all_packages(truck2, my_graph)
+deliver_all_packages(truck2)
 ##################################
 
 # START OF PROGRAM
 if __name__ == '__main__':
-
-    # print(myHash.table)
-    # print()
-    # print(lookup_package(12))
 
     print(f'\nWelcome to the WGU Postal Service Delivery System\n')
     # Loop until user exits

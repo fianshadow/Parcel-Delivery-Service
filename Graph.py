@@ -61,7 +61,7 @@ def find_package_by_vertex(vertex, package_list):
 
 
 # This function is a modification of the nearest neighbor algorithm. First it checks to see which packages have
-# deadlines. Packages with deadlines are sorted by shortest distance and delivered first. Then the remaining packages
+# deadlines. Packages with deadlines are sorted by shortest distance and delivered first, then the remaining packages
 # are sorted and delivered.
 def find_closest_vertex(start_vertex, package_list, g):
     distances = []
